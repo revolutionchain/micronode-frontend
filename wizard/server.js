@@ -361,7 +361,7 @@ app.post('/api/forcereboot', (req, res, next) => {
 
   
   res.send('done');
-  execFile('bash', ['/home/revo/nodeutils', '-forcereboot'], (err, stdout, stderr) => {
+  execFile('bash', ['/root/nodeutils', '-forcereboot'], (err, stdout, stderr) => {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -386,7 +386,7 @@ app.post('/api/reboot', (req, res, next) => {
 
   res.send('done');
   setTimeout(()=> {
-    execFile('bash', ['/home/revo/nodeutils', '-reboot'], (err, stdout, stderr) => {
+    execFile('bash', ['/root/nodeutils', '-reboot'], (err, stdout, stderr) => {
       if (err) {
         console.log("error: " + err);
       } else if(stderr){
@@ -415,7 +415,7 @@ app.post('/api/shutdown', (req, res, next) => {
   
   res.send('done');
   setTimeout(() => {
-    execFile('bash', ['/home/revo/nodeutils', '-shutdown'], (err, stdout, stderr) => {
+    execFile('bash', ['/root/nodeutils', '-shutdown'], (err, stdout, stderr) => {
       if (err) {
         console.log("error: " + err);
       }else if(stderr){
@@ -451,16 +451,16 @@ app.post('/api/getprivkey', (req, res, next) => {
     return res.status(404).send("Error: Route protected")
   }
 
-  execFile('bash', ['/home/revo/nodeutils', '-walletunlock', walletKey], (errWalletUnlock, stdoutWalletUnlock, stderrWalletUnlock) => {
+  execFile('bash', ['/root/nodeutils', '-walletunlock', walletKey], (errWalletUnlock, stdoutWalletUnlock, stderrWalletUnlock) => {
     if (errWalletUnlock) {
       res.status(404).send(errWalletUnlock);
     } else {
-      execFile('bash', ['/home/revo/nodeutils', '-showmaster'], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
+      execFile('bash', ['/root/nodeutils', '-showmaster'], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
         if (errShowMaster) {
           res.status(404).send(errShowMaster);
         } else {
           console.log('ShowMaster: ' + stdoutShowMaster);
-          execFile('bash', ['/home/revo/nodeutils', '-getprivkey', stdoutShowMaster], (errGetPrivKey, stdoutGetPrivKey, stderrGetPrivKey) => {
+          execFile('bash', ['/root/nodeutils', '-getprivkey', stdoutShowMaster], (errGetPrivKey, stdoutGetPrivKey, stderrGetPrivKey) => {
             if (errGetPrivKey) {
               res.status(404).send(errGetPrivKey);
             } else {
@@ -500,7 +500,7 @@ app.post('/api/showdrives', function (req, res, next) {
 
 
 function checkFunction(disk, type) {
-  let result = execFileSync('bash', ['/home/revo/nodeutils', type, disk], { encoding: 'utf8' })
+  let result = execFileSync('bash', ['/root/nodeutils', type, disk], { encoding: 'utf8' })
   return result
 }
 
@@ -567,7 +567,7 @@ app.post('/api/makearray', (req, res, next) => {
     return res.status(404).send("Error: Route protected")
   }
 
-  execFile('sudo', ['bash', '/home/revo/nodeutils', '-makearray', disk1, disk2, 'md0', raid], (err, stdout, stderr) => {
+  execFile('sudo', ['bash', '/root/nodeutils', '-makearray', disk1, disk2, 'md0', raid], (err, stdout, stderr) => {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -578,9 +578,9 @@ app.post('/api/makearray', (req, res, next) => {
 
 function getArrInfo(type) {  
   try {
-    let result = execFileSync('bash', ['/home/revo/nodeutils', type, 'md0'], { encoding: 'utf8' });
+    let result = execFileSync('bash', ['/root/nodeutils', type, 'md0'], { encoding: 'utf8' });
     if (result.includes('md0')) {
-      return execFileSync('bash', ['/home/revo/nodeutils', type, 'md0'], { encoding: 'utf8' });
+      return execFileSync('bash', ['/root/nodeutils', type, 'md0'], { encoding: 'utf8' });
     } else {
       return 'Error: array not found'
     }
@@ -638,7 +638,7 @@ app.post('/api/wifiscan', (req, res, next) => {
   }
 
   
-  execFile('bash', ['/home/revo/nodeutils', '-wifiscan'], (err, stdout, stderr) => {
+  execFile('bash', ['/root/nodeutils', '-wifiscan'], (err, stdout, stderr) => {
     if (err) {
       res.send('Error: wifi networks not found');
     } else {
@@ -661,7 +661,7 @@ app.post('/api/genwificonfig', (req, res, next) => {
     return res.status(404).send("Error: Route protected")
   }
 
-  execFile('bash', ['/home/revo/nodeutils', '-genwificonfig', essid, pass, country], (err, stdout, stderr) => {
+  execFile('bash', ['/root/nodeutils', '-genwificonfig', essid, pass, country], (err, stdout, stderr) => {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -685,7 +685,7 @@ app.post('/api/removearray', (req, res, next) => {
   }
 
 
-  execFile('bash', ['/home/revo/nodeutils', '-removearray', disk1, disk2, 'md0'], (err, stdout, stderr) => {
+  execFile('bash', ['/root/nodeutils', '-removearray', disk1, disk2, 'md0'], (err, stdout, stderr) => {
     const { user, pass } = req.body;
     let userIsCreated = checkUserCreated();
     let authResult;
@@ -719,7 +719,7 @@ function globalFunction(type) {
     message = 'Daemon error on start/stop'
   }
   try {
-    return execFileSync('bash', ['/home/revo/nodeutils', type], { encoding: 'utf8' });
+    return execFileSync('bash', ['/root/nodeutils', type], { encoding: 'utf8' });
   } catch (error) {
     return message
   }
@@ -776,7 +776,7 @@ app.post('/api/genrevoconfig', (req, res, next) => {
     return res.status(404).send("Error: Route protected")
   }
 
-  execFile('bash', ['/home/revo/nodeutils', '-genrevoconf', rpcUser, rpcPass, nodeName], (err, stdout, stderr) => {
+  execFile('bash', ['/root/nodeutils', '-genrevoconf', rpcUser, rpcPass, nodeName], (err, stdout, stderr) => {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -845,7 +845,7 @@ app.post('/api/createwallet', (req, res, next) => {
     return res.status(404).send("Error: Route protected")
   }
 
-  execFile('bash', ['/home/revo/nodeutils', '-createwallet', walletName, walletPass], (err, stdout, stderr) => {
+  execFile('bash', ['/root/nodeutils', '-createwallet', walletName, walletPass], (err, stdout, stderr) => {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -865,9 +865,9 @@ function globalDashboardFunction(type) {/*
     message = 'Daemon error on start/stop'
   }*/
   if (type == '-getblockcount') {
-    let getBlockCountResponse = execFileSync('bash', ['/home/revo/nodeutils', '-getblockcount'], { encoding: 'utf8' });
-    let getBlockHash = execFileSync('bash', ['/home/revo/nodeutils', '-getblockhash', getBlockCountResponse], { encoding: 'utf8' });
-    let getBlock = execFileSync('bash', ['/home/revo/nodeutils', '-getblock', getBlockHash], { encoding: 'utf8' });
+    let getBlockCountResponse = execFileSync('bash', ['/root/nodeutils', '-getblockcount'], { encoding: 'utf8' });
+    let getBlockHash = execFileSync('bash', ['/root/nodeutils', '-getblockhash', getBlockCountResponse], { encoding: 'utf8' });
+    let getBlock = execFileSync('bash', ['/root/nodeutils', '-getblock', getBlockHash], { encoding: 'utf8' });
     getBlock = getBlock.replaceAll("\\", "").replaceAll("\n", "").replaceAll('\"', '"').replaceAll('"\\', '"').replaceAll("-of-", "_of_");
     getBlock = JSON.parse(getBlock)
     getBlock.time = Math.floor(Date.now() / 1000) - getBlock.time;
@@ -875,7 +875,7 @@ function globalDashboardFunction(type) {/*
     return getBlock;
   }
   try {
-    return execFileSync('bash', ['/home/revo/nodeutils', type], { encoding: 'utf8' });
+    return execFileSync('bash', ['/root/nodeutils', type], { encoding: 'utf8' });
   } catch (error) {
     return error
   }
@@ -898,15 +898,15 @@ app.post('/api/getlastestblocks', async (req, res, next) => {
 
   
   let blocks = [];
-  let getBlockCountResponse = execFileSync('bash', ['/home/revo/nodeutils', '-getblockcount'], { encoding: 'utf8' });
-  let getBlockHash = execFileSync('bash', ['/home/revo/nodeutils', '-getblockhash', getBlockCountResponse], { encoding: 'utf8' });
-  let getBlock = execFileSync('bash', ['/home/revo/nodeutils', '-getblock', getBlockHash], { encoding: 'utf8' });
+  let getBlockCountResponse = execFileSync('bash', ['/root/nodeutils', '-getblockcount'], { encoding: 'utf8' });
+  let getBlockHash = execFileSync('bash', ['/root/nodeutils', '-getblockhash', getBlockCountResponse], { encoding: 'utf8' });
+  let getBlock = execFileSync('bash', ['/root/nodeutils', '-getblock', getBlockHash], { encoding: 'utf8' });
   getBlock = getBlock.replaceAll("\\", "").replaceAll("\n", "").replaceAll('\"', '"').replaceAll('"\\', '"').replaceAll("-of-", "_of_");
   getBlock = JSON.parse(getBlock)
   getBlock.time = Math.floor(Date.now() / 1000) - getBlock.time;
   blocks.push(getBlock);
   for (let i = 0; i < 30; i++) {
-    let currentBlock = execFileSync('bash', ['/home/revo/nodeutils', '-getblock', blocks[i].previousblockhash], { encoding: 'utf8' });
+    let currentBlock = execFileSync('bash', ['/root/nodeutils', '-getblock', blocks[i].previousblockhash], { encoding: 'utf8' });
     currentBlock = currentBlock.replaceAll("\\", "").replaceAll("\n", "").replaceAll('\"', '"').replaceAll('"\\', '"').replaceAll("-of-", "_of_");
     currentBlock = JSON.parse(currentBlock);
     currentBlock.time = Math.floor(Date.now() / 1000) - currentBlock.time;
@@ -964,7 +964,7 @@ app.post('/api/getdashboarddata', async (req, res, next) => {
 });
 
 function checkPeersData() {
-  let peersData = execFileSync('bash', ['/home/revo/nodeutils', '-getpeers'], { encoding: 'utf8' });
+  let peersData = execFileSync('bash', ['/root/nodeutils', '-getpeers'], { encoding: 'utf8' });
   peersData = ((peersData).replaceAll("\\", "")).replaceAll("\n", "").replaceAll('\"', '"').replaceAll('"\\', '"').replaceAll("-of-", "_of_");
   if (peersData.length > 0) {
     peersData = JSON.parse(peersData);
@@ -1196,7 +1196,7 @@ app.post('/api/backupwallet', (req, res, next) => {
       if (stdout.includes("backup.dat")) {
         return res.send('ok');
       } else {
-        execFileSync('bash', ['/home/revo/nodeutils', '-backupwallet'], { encoding: 'utf8' });
+        execFileSync('bash', ['/root/nodeutils', '-backupwallet'], { encoding: 'utf8' });
 
         exec('ls', { cwd: '/home/revo/' }, (err, stdout, stderr) => {
           if (err) {
@@ -1245,9 +1245,9 @@ app.post('/api/updates', async (req, res, next) => {
   res.send("ok");
 
   if(type == "dashboard"){
-    execFileSync('bash', ['/home/revo/nodeutils', '-dashupgrade'], { encoding: 'utf8' });
+    execFileSync('bash', ['/root/nodeutils', '-dashupgrade'], { encoding: 'utf8' });
   }else if(type == "node"){    
-    execFileSync('bash', ['/home/revo/nodeutils', '-nodeupgrade'], { encoding: 'utf8' });
+    execFileSync('bash', ['/root/nodeutils', '-nodeupgrade'], { encoding: 'utf8' });
   }
 
 })
@@ -1266,12 +1266,12 @@ app.post('/api/listunspent', (req, res, next) => {
   }
 
   
-      execFile('bash', ['/home/revo/nodeutils', '-showmaster'], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
+      execFile('bash', ['/root/nodeutils', '-showmaster'], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
         if (errShowMaster) {
           res.status(404).send(errShowMaster);
         } else {
-          //let result = execFileSync('bash', ['/home/revo/nodeutils', '-listunspent', stdoutShowMaster.slice(0, stdoutShowMaster.length - 1 )], { encoding: 'utf8' });
-          let result = spawnSync('bash', ['/home/revo/nodeutils', '-listunspent', stdoutShowMaster.slice(0, stdoutShowMaster.length - 1 )], { encoding: 'utf8' });    
+          //let result = execFileSync('bash', ['/root/nodeutils', '-listunspent', stdoutShowMaster.slice(0, stdoutShowMaster.length - 1 )], { encoding: 'utf8' });
+          let result = spawnSync('bash', ['/root/nodeutils', '-listunspent', stdoutShowMaster.slice(0, stdoutShowMaster.length - 1 )], { encoding: 'utf8' });    
           let outtext = result.output[1]
           let outputresult = outtext.replaceAll("\n", "");
           res.send(outputresult);        
@@ -1294,12 +1294,12 @@ app.post('/api/listtransactions', (req, res, next) => {
   }
 
   
-      execFile('bash', ['/home/revo/nodeutils', '-showmaster'], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
+      execFile('bash', ['/root/nodeutils', '-showmaster'], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
         if (errShowMaster) {
           res.status(404).send(errShowMaster);
         } else {
-          //let result = execFileSync('bash', ['/home/revo/nodeutils', '-listunspent', stdoutShowMaster.slice(0, stdoutShowMaster.length - 1 )], { encoding: 'utf8' });
-          let result = spawnSync('bash', ['/home/revo/nodeutils', '-listtransactions'], { encoding: 'utf8' });    
+          //let result = execFileSync('bash', ['/root/nodeutils', '-listunspent', stdoutShowMaster.slice(0, stdoutShowMaster.length - 1 )], { encoding: 'utf8' });
+          let result = spawnSync('bash', ['/root/nodeutils', '-listtransactions'], { encoding: 'utf8' });    
           let outtext = result.output[1]
           let outputresult = outtext.replaceAll("\n", "");
           res.send(outputresult);        
@@ -1321,7 +1321,7 @@ app.post('/api/showpublicip', (req, res, next) => {
   }
 
   
-      let result = spawnSync('bash', ['/home/revo/nodeutils', '-showpublicip'], { encoding: 'utf8' });    
+      let result = spawnSync('bash', ['/root/nodeutils', '-showpublicip'], { encoding: 'utf8' });    
       let outtext = result.output[1]
       let outputresult = outtext.replaceAll("\n", "");
       res.send(outputresult);     
@@ -1342,7 +1342,7 @@ app.post('/api/getstakinginfo', (req, res, next) => {
   }
 
   
-  let response = execFileSync('bash', ['/home/revo/nodeutils', '-getstakinginfo'], { encoding: 'utf8' });
+  let response = execFileSync('bash', ['/root/nodeutils', '-getstakinginfo'], { encoding: 'utf8' });
   response = response.replaceAll("\n", "");
   res.send(response);
 })
@@ -1364,7 +1364,7 @@ app.post('/api/walletunlock', async (req, res, next) => {
   }
 
   if(walletPassword){
-    execFile('bash', ['/home/revo/nodeutils', '-walletunlock', walletPassword], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
+    execFile('bash', ['/root/nodeutils', '-walletunlock', walletPassword], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
       if (errShowMaster) {
         res.send("The wallet password entered was incorrect.");
       } else {
@@ -1393,11 +1393,11 @@ app.post('/api/walletunlockforstaking', async (req, res, next) => {
   }
 
   if(walletPassword){
-    execFile('bash', ['/home/revo/nodeutils', '-walletunlockforstaking', walletPassword], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
+    execFile('bash', ['/root/nodeutils', '-walletunlockforstaking', walletPassword], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
       if (errShowMaster) {
         res.send("The wallet password entered was incorrect.");
       } else {
-        execFileSync('bash', ['/home/revo/nodeutils', '-enablestaking', "true"], { encoding: 'utf8' });
+        execFileSync('bash', ['/root/nodeutils', '-enablestaking', "true"], { encoding: 'utf8' });
         res.send("ok");        
       }
     });    
@@ -1422,8 +1422,8 @@ app.post('/api/walletlockforstaking', (req, res, next) => {
   }
 
   
-  execFileSync('bash', ['/home/revo/nodeutils', '-walletlock'], { encoding: 'utf8' });
-  execFileSync('bash', ['/home/revo/nodeutils', '-enablestaking', "false"], { encoding: 'utf8' });
+  execFileSync('bash', ['/root/nodeutils', '-walletlock'], { encoding: 'utf8' });
+  execFileSync('bash', ['/root/nodeutils', '-enablestaking', "false"], { encoding: 'utf8' });
   res.send("Staking disabled successfully");
 })
 
@@ -1442,7 +1442,7 @@ app.post('/api/getver', (req, res, next) => {
   }
 
   
-  let result = execFileSync('bash', ['/home/revo/nodeutils', '-v'], { encoding: 'utf8' });  
+  let result = execFileSync('bash', ['/root/nodeutils', '-v'], { encoding: 'utf8' });  
   res.send(result);
 })
 
@@ -1463,7 +1463,7 @@ app.post('/api/splitutxosforaddress', (req, res, next) => {
   let master = execSync('cat /home/revo/master', { encoding: 'utf8' });
   master = master.slice(0, master.length - 1);
   
-  let result = execFileSync('bash', ['/home/revo/nodeutils', '-splitutxosforaddress', master, utxoValues.min, utxoValues.max], { encoding: 'utf8' });  
+  let result = execFileSync('bash', ['/root/nodeutils', '-splitutxosforaddress', master, utxoValues.min, utxoValues.max], { encoding: 'utf8' });  
   console.log(result);
   res.send(result);
 })
@@ -1486,7 +1486,7 @@ app.post('/api/mergeunspent', (req, res, next) => {
   let master = execSync('cat /home/revo/master', { encoding: 'utf8' });
   master = master.slice(0, master.length - 1);
   
-  let result = execFileSync('bash', ['/home/revo/nodeutils', '-mergeunspent', master, '500'], { encoding: 'utf8' });  
+  let result = execFileSync('bash', ['/root/nodeutils', '-mergeunspent', master, '500'], { encoding: 'utf8' });  
   console.log(result);
   res.send(result);
 })
@@ -1507,7 +1507,7 @@ app.post('/api/addnode', (req, res, next) => {
   }
 
 
-    execFile('bash', ['/home/revo/nodeutils', '-addnode', ipValue], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
+    execFile('bash', ['/root/nodeutils', '-addnode', ipValue], (errShowMaster, stdoutShowMaster, stderrShowMaster) => {
       if (errShowMaster) {
         res.send("Error: Node already added");
       } else {
@@ -1532,7 +1532,7 @@ app.post('/api/clearbanned', (req, res, next) => {
   }
 
 
-    execFile('bash', ['/home/revo/nodeutils', '-clearbanned'], (err, stdout, stderr) => {
+    execFile('bash', ['/root/nodeutils', '-clearbanned'], (err, stdout, stderr) => {
       if (err) {
         res.send("Error: Node already added");
       } else {
@@ -1557,7 +1557,7 @@ app.post('/api/validateaddress', (req, res, next) => {
   }
 
 
-    execFile('bash', ['/home/revo/nodeutils', '-validateaddress', walletAddress], (err, stdout, stderr) => {
+    execFile('bash', ['/root/nodeutils', '-validateaddress', walletAddress], (err, stdout, stderr) => {
       if (err) {
         res.send("error: invalid wallet");
       } else {
@@ -1582,7 +1582,7 @@ app.post('/api/sendtoaddress', (req, res, next) => {
   }
 
 
-    execFile('bash', ['/home/revo/nodeutils', '-sendtoaddress', address, amount], (err, stdout, stderr) => {
+    execFile('bash', ['/root/nodeutils', '-sendtoaddress', address, amount], (err, stdout, stderr) => {
       if (err) {
         res.send("error: ");
       } else {
