@@ -226,7 +226,7 @@ const UserProfile = props => {
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>Profile | Revo Node Manager</title>
+          <title>Profile | Revo MicroNode Manager</title>
         </MetaTags>
         <Container fluid>
           {/* Render Breadcrumb */}

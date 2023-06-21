@@ -58,7 +58,7 @@ class Layout extends Component {
     // let currentage = this.capitalizeFirstLetter(this.props.location.pathname)
 
     // document.title =
-    //   currentage + " | Revo Node Manager"
+    //   currentage + " | Revo MicroNode Manager"
     
     if (this.props.layoutMode) {
       this.props.changelayoutMode(this.props.layoutMode);

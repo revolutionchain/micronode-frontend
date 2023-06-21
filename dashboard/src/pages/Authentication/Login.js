@@ -180,7 +180,7 @@ const Login = (props) => {
                   <div className='content-container'>
                     <div className="">
                       <div>
-                        <h2>Revo Node Manager</h2>
+                        <h2>Revo MicroNode Manager</h2>
                       </div>
                       <div className="mt-4 pt-3">
                         <AvForm

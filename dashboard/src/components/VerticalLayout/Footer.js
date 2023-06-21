@@ -39,7 +39,7 @@ const Footer = (props) => {
       <footer className="footer">
         <Container fluid={true}>
           <Row>
-            <Col md={6}>{new Date().getFullYear()} - {nodeVersion ? nodeVersion + " " : ""}Revo Node Manager. Web v.1.0</Col>
+            <Col md={6}>{new Date().getFullYear()} - {nodeVersion ? nodeVersion + " " : ""}Revo MicroNode Manager. Web v.1.0</Col>
             <Col md={6}>
               <div className="text-sm-end d-none d-sm-block">
               </div>

@@ -155,7 +155,7 @@ const Header = (props) => {
 
             <form style={{display: `flex`, alignItems: `center`}} className="font-size-16 header-item">
               <div className="position-relative">              
-              <h4 style={{ marginBottom: `0`}}>Node Manager</h4>
+              <h4 style={{ marginBottom: `0`}}>MicroNode Manager</h4>
               {/*
                 <input
                   type="text"

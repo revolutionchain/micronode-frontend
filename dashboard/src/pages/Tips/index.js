@@ -32,11 +32,11 @@ const Wallet = props => {
       {<div className="page-content">
         {props.isTitle ?
           <MetaTags>
-            <title>Preloader | Revo Node Manager</title>
+            <title>Preloader | Revo MicroNode Manager</title>
           </MetaTags>
           :
           <MetaTags>
-            <title>Dashboard | Revo Node Manager</title>
+            <title>Dashboard | Revo MicroNode Manager</title>
           </MetaTags>
         }
 

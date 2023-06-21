@@ -1609,7 +1609,7 @@ app.post('/api/listadressessgroupings', (req, res, next) => {
     return res.status(404).send("Error: Route protected")
   }
 
-  let result = execSync('/root/revo/revo-cli -datadir=/mnt/storage/.revo listaddressgroupings', { encoding: 'utf8' });
+  let result = execSync('/root/revo/revo-cli listaddressgroupings', { encoding: 'utf8' });
   res.send(result);
 
 })
