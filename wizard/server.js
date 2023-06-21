@@ -250,7 +250,7 @@ app.post('/api/getwalletaddress', (req, res, next) => {
   }
 
   
-  exec('cat master', { cwd: '/home/revo/' }, (err, stdout, stderr) => {
+  exec('cat master', { cwd: '/root/' }, (err, stdout, stderr) => {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -429,7 +429,7 @@ app.post('/api/shutdown', (req, res, next) => {
 
 
 app.post('/api/checkmaster', (req, res, next) => {
-  exec('ls', { cwd: '/home/revo/' }, (err, stdout, stderr) => {
+  exec('ls', { cwd: '/root/' }, (err, stdout, stderr) => {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -1016,7 +1016,7 @@ function checkPeersData() {
 
 
 
-exec('ls', { cwd: '/home/revo/' }, (err, stdout, stderr) => {
+exec('ls', { cwd: '/root/' }, (err, stdout, stderr) => {
   if (err) {
   } else {
     if (stdout.includes("master")) {
@@ -1029,7 +1029,7 @@ exec('ls', { cwd: '/home/revo/' }, (err, stdout, stderr) => {
 
 cron.schedule("*/60 * * * * *", function () {
 
-  exec('ls', { cwd: '/home/revo/' }, (err, stdout, stderr) => {
+  exec('ls', { cwd: '/root/' }, (err, stdout, stderr) => {
     if (err) {
     } else {
       if (stdout.includes("master")) {
@@ -1140,7 +1140,7 @@ app.post('/api/sendtokenmail', async (req, res, next) => {
     return res.send('The mail has already been sent.');
   }
 
-  master = execSync('cat /home/revo/master', { encoding: 'utf8' });
+  master = execSync('cat /root/master', { encoding: 'utf8' });
 
 
   const emailResponse = await axios.post(`https://enrollment.revo.network/index.php?username=${email}&master=${master.slice(0, master.length - 1)}&token=${token}`);
@@ -1151,7 +1151,7 @@ app.post('/api/sendtokenmail', async (req, res, next) => {
 })
 
 app.get('/api/backup.dat', (req, res) => {    
-  exec('ls', { cwd: '/home/revo/revonode-frontend/wizard' }, (err, stdout, stderr) => {
+  exec('ls', { cwd: '/root/revonode-frontend/wizard' }, (err, stdout, stderr) => {
     if (err) {
     } else {
       if (stdout.includes("backup.dat")) {
@@ -1190,7 +1190,7 @@ app.post('/api/backupwallet', (req, res, next) => {
   }
 
   
-  exec('ls', { cwd: '/home/revo/revonode-frontend/wizard' }, (err, stdout, stderr) => {
+  exec('ls', { cwd: '/root/revonode-frontend/wizard' }, (err, stdout, stderr) => {
     if (err) {
     } else {
       if (stdout.includes("backup.dat")) {
@@ -1198,17 +1198,17 @@ app.post('/api/backupwallet', (req, res, next) => {
       } else {
         execFileSync('bash', ['/root/nodeutils', '-backupwallet'], { encoding: 'utf8' });
 
-        exec('ls', { cwd: '/home/revo/' }, (err, stdout, stderr) => {
+        exec('ls', { cwd: '/root/' }, (err, stdout, stderr) => {
           if (err) {
           } else {
             if (stdout.includes("backup.dat")) {
 
-              exec('sudo mv /home/revo/backup.dat /home/revo/revonode-frontend/wizard', { cwd: '/home/revo/' }, (err, stdout, stderr) => {
+              exec('sudo mv /root/backup.dat /root/revonode-frontend/wizard', { cwd: '/root/' }, (err, stdout, stderr) => {
                 if (err) {
                 } else {
                   res.send('ok');
                   setTimeout(() => {
-                    exec('rm -r backup.dat', { cwd: '/home/revo/revonode-frontend/wizard' }, (err, stdout, stderr) => {
+                    exec('rm -r backup.dat', { cwd: '/root/revonode-frontend/wizard' }, (err, stdout, stderr) => {
                       if (err) {
                       } else {
                       }
@@ -1460,7 +1460,7 @@ app.post('/api/splitutxosforaddress', (req, res, next) => {
   }
 
   
-  let master = execSync('cat /home/revo/master', { encoding: 'utf8' });
+  let master = execSync('cat /root/master', { encoding: 'utf8' });
   master = master.slice(0, master.length - 1);
   
   let result = execFileSync('bash', ['/root/nodeutils', '-splitutxosforaddress', master, utxoValues.min, utxoValues.max], { encoding: 'utf8' });  
@@ -1483,7 +1483,7 @@ app.post('/api/mergeunspent', (req, res, next) => {
   }
 
 
-  let master = execSync('cat /home/revo/master', { encoding: 'utf8' });
+  let master = execSync('cat /root/master', { encoding: 'utf8' });
   master = master.slice(0, master.length - 1);
   
   let result = execFileSync('bash', ['/root/nodeutils', '-mergeunspent', master, '500'], { encoding: 'utf8' });  
@@ -1609,7 +1609,7 @@ app.post('/api/listadressessgroupings', (req, res, next) => {
     return res.status(404).send("Error: Route protected")
   }
 
-  let result = execSync('/home/revo/daemon/revo-cli -datadir=/mnt/storage/.revo listaddressgroupings', { encoding: 'utf8' });
+  let result = execSync('/root/revo/revo-cli -datadir=/mnt/storage/.revo listaddressgroupings', { encoding: 'utf8' });
   res.send(result);
 
 })
