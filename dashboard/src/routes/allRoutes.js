@@ -39,6 +39,8 @@ import Backup from "../pages/Backup/index"
 import Update from "../pages/Update/index"
 
 
+// { path: "/settings", component: Settings },
+
 const userRoutes = [
   { path: "/dashboard", component: Dashboard },
 
@@ -52,8 +54,6 @@ const userRoutes = [
 
   { path: "/tips", component: Tips },
   
-  { path: "/settings", component: Settings },
-
   { path: "/backup", component: Backup },
 
   { path: "/update", component: Update },

@@ -53,21 +53,7 @@ const icons = []
                                     </div>
                                   </div>
                                   </CardBody>
-                            </Card>   }   
-                            {!(window.location.hostname).includes("revo.host") && <Card>
-                                <CardBody>
-                                  <div class="col-12">
-                                    <h4 class="card-title"><i className="mdi mdi-ethernet"></i> Ethernet or WiFi?</h4>                                     
-                                    <div class="card">                                     
-                                      <div class="card-body">                                        
-                                        <p>
-                                        A wired ethernet connection is generally considered to be more <b>reliable and faster</b> than a wireless connection such as WiFi. This is because wired connections are not subject to interference from other wireless devices or networks, and the signal is not subject to degradation over distance. Additionally, wired connections are typically faster than wireless connections, as they have a larger bandwidth and lower latency. This makes them more suitable for use in blockchain node server applications, where reliability and speed are important factors.
-                                        </p>                                        
-                                      </div>
-                                    </div>
-                                  </div>
-                                  </CardBody>
-                            </Card>      }
+                            </Card>   }                               
                             <Card>
                                 <CardBody>
                                   <div class="col-12">
@@ -94,7 +80,7 @@ const icons = []
                                         </p>
                                         <p>
                                         - Open a terminal or command prompt on your local machine (Windows/Linux/Mac)<br></br>
-                                        - Use the <b>ssh</b> command to connect to the Revo node console. Default username is <i>revo</i> and the default password is <i>revo2023</i><br></br>
+                                        - Use the <b>ssh</b> command to connect to the Revo node console. Default username is <i>root</i> and the default password is <i>revo2023</i><br></br>
                                         - Once logged in, use the <b>passwd</b> command to change the default password. You will be prompted to enter the current password, and then asked to enter a new password<br></br>
                                         - After succesfully changing the password, use <b>exit</b> command to log out of the Revo node console.<br></br>
                                         - To login again, use the new SSH password.

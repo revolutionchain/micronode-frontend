@@ -125,10 +125,10 @@ const ProfileMenu = props => {
             <i className="bx bx-user font-size-16 align-middle me-1" />
             {props.t("Profile")}{" "}
           </DropdownItem></Link>
-          { <Link to="/settings"><DropdownItem>
+          {/* <Link to="/settings"><DropdownItem>
             <i className="bx bx-wrench font-size-16 align-middle me-1" />
             {props.t("Settings")}
-          </DropdownItem></Link>}
+</DropdownItem></Link>*/}
           <Link to="/backup"><DropdownItem>
             <i className="bx bx-save font-size-16 align-middle me-1" />
             {props.t("Backup")}

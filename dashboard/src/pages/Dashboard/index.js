@@ -262,7 +262,7 @@ const Dashboard = props => {
 
               <div className="row justify-content-center">
                 <div className="col-xl-10">
-                  <h4 className="text-primary">Early Adopters Airdrop!</h4>
+                  <h4 className="text-primary">Micronode Airdrop!</h4>
                   <p className={errorMsg.length > 1 ? "font-size-14 mb-4 text-danger" : successMsg.length > 1 ? "text-primary font-size-14 mb-4" : "text-muted font-size-14 mb-4"}>{errorMsg.length > 1 ? errorMsg : successMsg.length > 1 ? successMsg : "Scan your personal NFC Revo tag to enroll!"} </p>
 
                   {errorMsg.length < 1 ? successMsg.length > 1 ? <div></div> : <div className="input-group bg-light rounded">
