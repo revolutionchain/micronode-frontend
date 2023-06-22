@@ -1151,7 +1151,7 @@ app.post('/api/sendtokenmail', async (req, res, next) => {
 })
 
 app.get('/api/backup.dat', (req, res) => {    
-  exec('ls', { cwd: '/root/revonode-frontend/wizard' }, (err, stdout, stderr) => {
+  exec('ls', { cwd: '/root/micronode-frontend/wizard' }, (err, stdout, stderr) => {
     if (err) {
     } else {
       if (stdout.includes("backup.dat")) {
@@ -1190,7 +1190,7 @@ app.post('/api/backupwallet', (req, res, next) => {
   }
 
   
-  exec('ls', { cwd: '/root/revonode-frontend/wizard' }, (err, stdout, stderr) => {
+  exec('ls', { cwd: '/root/micronode-frontend/wizard' }, (err, stdout, stderr) => {
     if (err) {
     } else {
       if (stdout.includes("backup.dat")) {
@@ -1203,12 +1203,12 @@ app.post('/api/backupwallet', (req, res, next) => {
           } else {
             if (stdout.includes("backup.dat")) {
 
-              exec('sudo mv /root/backup.dat /root/revonode-frontend/wizard', { cwd: '/root/' }, (err, stdout, stderr) => {
+              exec('sudo mv /root/backup.dat /root/micronode-frontend/wizard', { cwd: '/root/' }, (err, stdout, stderr) => {
                 if (err) {
                 } else {
                   res.send('ok');
                   setTimeout(() => {
-                    exec('rm -r backup.dat', { cwd: '/root/revonode-frontend/wizard' }, (err, stdout, stderr) => {
+                    exec('rm -r backup.dat', { cwd: '/root/micronode-frontend/wizard' }, (err, stdout, stderr) => {
                       if (err) {
                       } else {
                       }
