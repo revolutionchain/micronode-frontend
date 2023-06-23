@@ -70,11 +70,11 @@ function handleButton (types){
             success
             title={dynamic_title}
             showConfirm={false}
-            timeout={dynamic_title.includes("Node Updating..") ? 1080 : 0}
+            timeout={dynamic_title.includes("Node Updating..") ? 1500 : 0}
             onConfirm={() => {
               setTimeout(()=> {
                 window.open(`http://${window.location.hostname}/login`, '_self')
-              }, 1080000)
+              }, 1500000)
             }}
           >
             {dynamic_description}
