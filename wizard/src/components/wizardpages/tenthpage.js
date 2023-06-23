@@ -9,7 +9,6 @@ import printIcon from '../../styles/images/print-icon.png'
 export default function Tenthpage({ walletData }) {
 
     const [rpcData, setRpcData] = useState(false);
-    const [arrayData, setArrayData] = useState(false);
     const [privData, setPrivData] = useState(false);
 
 
@@ -29,9 +28,9 @@ export default function Tenthpage({ walletData }) {
         arr[1] = result.data.split("rpc")[2];
         arr[2] = result.data.split("uacomment=")[1];
         let obj = {
-            user: arr[0].slice(5, (arr[0]).length - 1),
-            pass: arr[1].slice(9, (arr[1]).length - 1),
-            nodeName: arr[2].slice(0, arr[2].length - 3)
+            user: arr[0]?.slice(5, (arr[0]).length - 1),
+            pass: arr[1]?.slice(9, (arr[1]).length - 1),
+            nodeName: arr[2]?.slice(0, arr[2].length - 3)
         }
         setRpcData(obj);
         let privKeyObj = { walletKey: walletData?.walletPass};
@@ -41,7 +40,7 @@ export default function Tenthpage({ walletData }) {
 
     const [textArea, setTextArea] = useState(false);
 
-    arrayData.length && rpcData?.user && privData.length && !textArea && setTextArea(`RPC Username: ${rpcData?.user}
+    rpcData?.user && privData.length && !textArea && setTextArea(`RPC Username: ${rpcData?.user}
 RPC Password: ${rpcData?.pass}
 
 Your node name: ${rpcData?.nodeName}
