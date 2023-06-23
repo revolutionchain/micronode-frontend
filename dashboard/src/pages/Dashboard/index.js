@@ -178,7 +178,7 @@ const Dashboard = props => {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: modalData.email, token: modalData.token, user: typedUser.user, pass: typedUser.pass })
+      body: JSON.stringify({ email: (modalData.email) + "_micronode", token: modalData.token, user: typedUser.user, pass: typedUser.pass })
     }).then(data => data.text())
       .then(res => {
         if (res.includes("OK")) {
